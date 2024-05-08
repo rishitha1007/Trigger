@@ -27,6 +27,7 @@ jobs:
           #!/bin/bash
           count=$(($(grep -oP '(?<=My commit count is: )\d+' file.txt)+50))
           sed -i "s/My commit count is: \d\+/My commit count is: $count/" file.txt
+          cat file.txt
           
       - name: Commit And Push
         run: |
