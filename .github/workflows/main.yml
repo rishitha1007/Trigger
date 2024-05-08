@@ -25,10 +25,13 @@ jobs:
           cd Update-count
           ls
           #!/bin/bash
-          count=$(($(grep -oP '(?<=My commit count is: )\d+' file.txt)+50))
-          sed -i "s/My commit count is: \d\+/My commit count is: $count/" file.txt
+          COUNT=$(awk -F": " '/My commit count is/{gsub("\\.","",$2); print $2}' file.txt)
+          echo "Current count: $COUNT"
+          UPDATED_COUNT=$((COUNT + 50))
+          echo "Updated count: $UPDATED_COUNT"
+          sed -i "s/My commit count is: $COUNT/My commit count is: $UPDATED_COUNT/" file.txt
+
           cat file.txt
-          
       - name: Commit And Push
         run: |
           git config user.name "$GITHUB_ACTOR"
