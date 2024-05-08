@@ -2,7 +2,7 @@ name: Update-Count-In-File.txt
 on:
   push:
     branches: 
-      - uat
+      - main
 
 jobs:
   Update-Commit-Count:
@@ -14,6 +14,7 @@ jobs:
       - name: Clone repo
         run: |
           git clone https://github.com/rishitha1007/Update-count
+          git checkout uat
 
       - name: Update Count
         run: |
