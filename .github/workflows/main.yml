@@ -28,7 +28,7 @@ jobs:
           COUNT=$(awk '/My commit count is:/{print $5}' file.txt)
           UPDATED_COUNT=$((COUNT + 50))
           awk -v count="$UPDATED_COUNT" '/My commit count is:/{$5=count"."} 1' file.txt > temp.txt && mv temp.txt file.txt
-      
+
       - name: Commit And Push
         run: |
           git config user.name "$GITHUB_ACTOR"
