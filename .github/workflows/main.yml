@@ -25,8 +25,8 @@ jobs:
           cd Update-count
           ls
           #!/bin/bash
-          count=$(($(grep -oP '(?<=My commit count is: )\d+' text-file.txt)+50))
-          sed -i "s/My commit count is: \d\+/My commit count is: $count/" text-file.txt
+          count=$(($(grep -oP '(?<=My commit count is: )\d+' file.txt)+50))
+          sed -i "s/My commit count is: \d\+/My commit count is: $count/" file.txt
           
       - name: Commit And Push
         run: |
