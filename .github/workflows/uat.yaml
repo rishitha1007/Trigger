@@ -1,0 +1,42 @@
+name: Update-Count-In-File.txt
+on:
+  push:
+    branches: 
+      - uat
+
+jobs:
+  Update-Commit-Count:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_NAME: rishitha1007
+      GITHUB_REPO: Update-count
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Clone repo
+        run: |
+          git clone https://${{ secrets.AWS_GITHUB_USER }}:${{ secrets.AWS_GITHUB_TOKEN }}@github.com/$GITHUB_NAME/$GITHUB_REPO
+          git checkout uat
+
+      - name: Update Count
+        run: |
+          cd Update-count
+          #!/bin/bash
+          COUNT=$(awk -F": " '/My commit count is/{gsub("\\.","",$2); print $2}' file.txt)
+          echo "Current count: $COUNT"
+          UPDATED_COUNT=$((COUNT + 50))
+          echo "Updated count: $UPDATED_COUNT"
+          sed -i "s/My commit count is: $COUNT/My commit count is: $UPDATED_COUNT/" file.txt
+
+      - name: Commit And Push
+        run: |
+          cd Update-count
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@wohlig.com"
+          git add .
+          git commit -m "Updating Count"
+          git push
+      
+      
