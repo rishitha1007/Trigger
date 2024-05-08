@@ -24,7 +24,7 @@ jobs:
         run: |
           cd Update-count
           #!/bin/bash
-          COUNT=$(awk -F": " '/My commit count is/{gsub("\\.","",$2); print $2}' file.txt)
+          COUNT=$(sed -n 's/My commit count is: \([0-9]*\)/\1/p' file.txt)
           echo "Current count: $COUNT"
           UPDATED_COUNT=$((COUNT + 50))
           echo "Updated count: $UPDATED_COUNT"
