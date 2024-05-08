@@ -21,8 +21,9 @@ jobs:
 
       - name: Update Count
         run: |
+          
+          cd Update-count
           ls
-          pwd
           #!/bin/bash
           COUNT=$(awk '/My commit count is:/{print $5}' file.txt)
           UPDATED_COUNT=$((COUNT + 50))
