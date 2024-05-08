@@ -34,6 +34,7 @@ jobs:
           cat file.txt
       - name: Commit And Push
         run: |
+          cd Update-count
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@wohlig.com"
           git add .
